@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { PhotoCamera } from '@material-ui/icons';
 import sellModelInterface, { ELocationType, ESellType } from '../../models/sellModel';
+
 import { sellApi } from '../../servieApi/sellApi';
 const useStyles = makeStyles(() => ({
     container: {
@@ -62,6 +63,7 @@ const Sell = () => {
                 <FormLabel component="legend">Title</FormLabel>
                 <TextField fullWidth label="title" name="title" value={form.title} onChange={handleForm} />
             </FormControl>
+        
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
                 <Select
@@ -85,7 +87,7 @@ const Sell = () => {
                 <TextareaAutosize
                     aria-label="empty textarea"
                     placeholder="Empty"
-                    style={{ width: 200 }}
+                    style={{ width: 500 ,height:150}}
                     name="description"
                     value={form.description}
                     onChange={handleForm}
@@ -114,6 +116,8 @@ const Sell = () => {
                 <TextField fullWidth label="phone" name="phone" value={form.phone} onChange={handleForm} />
             </FormControl>
             <h2>Publish your ad</h2>
+          
+          
             <Button onClick={handelclickSell} variant="contained">to Sell</Button>
 
         </div>
