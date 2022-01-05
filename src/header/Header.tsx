@@ -102,7 +102,8 @@ const Header = () => {
       onClose={handleMenuClose}
     >
       <Link to="/signup" ><MenuItem onClick={handleMenuClose}>Signup</MenuItem></Link>
-        <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+      <Link to="/login"> <MenuItem onClick={handleMenuClose}>Login</MenuItem></Link>
+      <MenuItem onClick={handleMenuClose}>My Sell</MenuItem>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>

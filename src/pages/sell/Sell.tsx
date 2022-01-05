@@ -3,13 +3,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { Button, IconButton, Input, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import { Button, IconButton, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { PhotoCamera } from '@material-ui/icons';
 import sellModelInterface, { ELocationType, ESellType } from '../../models/sellModel';
-
+import { addcategoryApi } from "../../servieApi/sellApi"
 import { sellApi } from '../../servieApi/sellApi';
+import categoryModelInterface from '../../models/categoryCategory';
 const useStyles = makeStyles(() => ({
     container: {
         display: "flex",
@@ -22,7 +23,8 @@ const useStyles = makeStyles(() => ({
 const Sell = () => {
 
     const classes = useStyles()
-
+    const [categoryList, setCategoryList] = useState<categoryModelInterface[]>([])
+    const [files, setFiles] = useState<any>([])
     const [form, setForm] = useState<sellModelInterface>({
         category: "",
         description: "",
@@ -34,20 +36,45 @@ const Sell = () => {
         phone: "",
         selltype: ESellType.REQUEST
     })
-
+    useEffect(() => {
+        addcategoryApi().then((res) => {
+            setCategoryList(res.data)
+        }).catch((err) => {
+            console.log("erraddcategoryApi=", err)
+        })
+    }, [])
     const handleForm = (event: any) => {
         const newForm = { ...form } as any
-       
+
         newForm[event.target.name] = event.target.value
         setForm(newForm)
     }
-    const handelclickSell=()=>{
-       
-        sellApi(form).then((res:any)=>{
+    const handelclickSell = () => {
+        const formdata = new FormData()
+        formdata.append("description", form.description);
+        formdata.append("name", form.name);
+        formdata.append("price", form.price + "");
+        formdata.append("title", form.title);
+        formdata.append("phone", form.phone);
+        formdata.append("locationType", form.locationType);
+        formdata.append("selltype", form.selltype);
+      
+        for (const key of Object.keys(files))
+        {
+             formdata.append('images', files[key])
+            }
+        sellApi(formdata).then((res: any) => {
 
-        }).catch((err:any)=>{
-            console.log("err=",err)
+        }).catch((err: any) => {
+            console.log("err=", err)
         })
+    }
+
+    const HandlechangeImage = (event: any) => {
+        const profilImage = event.target.files
+        if (profilImage)
+        
+        setFiles(profilImage)
     }
     return (
         <div className={classes.container}>
@@ -63,7 +90,7 @@ const Sell = () => {
                 <FormLabel component="legend">Title</FormLabel>
                 <TextField fullWidth label="title" name="title" value={form.title} onChange={handleForm} />
             </FormControl>
-        
+
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
                 <Select
@@ -73,8 +100,11 @@ const Sell = () => {
                     label="bag"
                     onChange={handleForm}
                 >
-                    <MenuItem value={10}>bag</MenuItem>
-                    <MenuItem value={20}>accessorie</MenuItem>
+                    {categoryList.map((item, index) => {
+                        return <MenuItem key={index} value={item._id}>{item.name}</MenuItem>
+                    })}
+
+
 
                 </Select>
             </FormControl>
@@ -87,14 +117,14 @@ const Sell = () => {
                 <TextareaAutosize
                     aria-label="empty textarea"
                     placeholder="Empty"
-                    style={{ width: 500 ,height:150}}
+                    style={{ width: 500, height: 150 }}
                     name="description"
                     value={form.description}
                     onChange={handleForm}
                 />
             </FormControl>
-            <label htmlFor="icon-button-file">
-                <Input id="icon-button-file" type="file" />
+            <label htmlFor="icon-button-file" >
+                <input id="icon-button-file" type="file" multiple onChange={HandlechangeImage} />
                 <IconButton color="primary" aria-label="upload picture" component="span">
                     <PhotoCamera />
                 </IconButton>
@@ -116,8 +146,8 @@ const Sell = () => {
                 <TextField fullWidth label="phone" name="phone" value={form.phone} onChange={handleForm} />
             </FormControl>
             <h2>Publish your ad</h2>
-          
-          
+
+
             <Button onClick={handelclickSell} variant="contained">to Sell</Button>
 
         </div>

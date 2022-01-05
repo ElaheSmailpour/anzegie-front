@@ -2,7 +2,7 @@ import { signupApi } from "../../servieApi/sellApi"
 import { useState } from "react"
 import { Button, FormControl, FormLabel, TextField } from "@mui/material"
 import { makeStyles } from '@mui/styles';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const useStyles = makeStyles(() => ({
     container: {
         display: "flex",
@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
 
 const Signup = () => {
     const classes = useStyles()
-  //  const navigate=useNavigate()
+ const navigate=useNavigate()
     const [form, setForm] = useState({
         name: "",
         phone: "",
@@ -45,8 +45,9 @@ const Signup = () => {
         }
 
         signupApi(addsignup).then((res) => {
+            console.log("resSignup=",res)
             alert("signup submitted successfully")
-            //  navigate("/")
+          navigate("/")
         }).catch((error) => {
 
             console.log(error);
