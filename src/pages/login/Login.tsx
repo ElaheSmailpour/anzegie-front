@@ -24,7 +24,7 @@ const Login = () => {
 
             toast.success("login");
             localStorage.setItem("userToken", res.data.token)
-            localStorage.setItem("username", res.data.username)
+            localStorage.setItem("username", login.username)
             window.location.assign("/sell");
 
         }).catch((err: any) => {

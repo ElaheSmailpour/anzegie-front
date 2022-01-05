@@ -6,6 +6,7 @@ const getAxios = () => {
         baseURL: "http://localhost:5000/",
       headers:{
         "Token":localStorage.getItem("userToken") || ""
+        
       }
     })
 }
