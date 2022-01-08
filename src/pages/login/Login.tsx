@@ -6,24 +6,25 @@ import 'react-toastify/dist/ReactToastify.css';
 import React, { useState } from 'react';
 
 const Login = () => {
-    
+
     const [error, setError] = useState("")
     const [login, setLogin] = useState({
         username: "",
         password: ""
     })
 
-    const HandleLogin = (event:any) => {
+    const HandleLogin = (event: any) => {
         const newLogin = { ...login, [event.target.name]: event.target.value }
         setLogin(newLogin)
     }
 
     const HandleSubmit = () => {
 
-        loginApi(login.username, login.password).then((res )=> {
+        loginApi(login.username, login.password).then((res) => {
 
             toast.success("login");
             localStorage.setItem("userToken", res.data.token)
+            localStorage.setItem("name", res.data.name)
             localStorage.setItem("username", login.username)
             window.location.assign("/sell");
 
@@ -32,29 +33,32 @@ const Login = () => {
 
             console.log("errorTerminService=", err)
         })
-        
+
     }
 
 
 
     return (
         <div className="login">
-            
-             <div className="login-Content">
+
+            <div className="login-Content">
                 <h1>Login</h1>
                 <FormControl component="fieldset">
-                        <FormLabel component="legend">Username</FormLabel>
-                        <TextField fullWidth label="username" name="username" placeholder="username" value={login.username} onChange={HandleLogin} />
-                    </FormControl>
-               <FormControl component="fieldset">
-                        <FormLabel component="legend">Password</FormLabel>
-                        <TextField type="password" fullWidth label="password" name="password" placeholder="password" value={login.password} onChange={HandleLogin} />
-                    </FormControl>
-               <Button onClick={HandleSubmit}>login</Button>
-                
-          
-          
+                    <FormLabel component="legend">Username</FormLabel>
+                    <TextField fullWidth label="username" name="username" placeholder="username" value={login.username} onChange={HandleLogin} />
+                </FormControl>
+                <FormControl component="fieldset">
+                    <FormLabel component="legend">Password</FormLabel>
+                    <TextField type="password" fullWidth label="password" name="password" placeholder="password" value={login.password} onChange={HandleLogin} />
+                </FormControl>
+                <Button onClick={HandleSubmit}>login</Button>
+
+
+
             </div>
+            {error && <div >
+                <p>{error}</p>
+            </div>}
         </div>
     )
 }

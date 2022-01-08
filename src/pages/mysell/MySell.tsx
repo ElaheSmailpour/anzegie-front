@@ -1,10 +1,34 @@
 
+import { Box, Grid } from "@mui/material"
+import { useEffect, useState } from "react"
+import sellModelInterface from "../../models/sellModel"
+import { getMySellApi } from "../../servieApi/sellApi"
+import ShowMySell from "./ShowMySell"
+const MySell = () => {
+    const [mySellData, setMySellData] = useState<sellModelInterface[]>([])
+    useEffect(() => {
+        updateDataFuction()
+    }, [])
 
-const MySell=()=>{
-    return(
+    const updateDataFuction=()=>{
+        getMySellApi().then((res) => {
+            setMySellData(res.data)
+        }).catch((err) => {
+            console.log("err getMySellApi=", err)
+        })
+    }
+    return (
         <div>
-            
-            </div>
+
+            <Box p={5}>
+                <Grid container spacing={5} >
+                    {mySellData.map((item, i) => {
+                        return <Grid item key={i}> <ShowMySell UpdateData={updateDataFuction} sell={item} /> </Grid>
+                    })}
+                </Grid>
+            </Box>
+
+        </div>
     )
 }
 

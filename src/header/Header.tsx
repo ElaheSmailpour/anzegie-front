@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+
 import MoreIcon from '@mui/icons-material/MoreVert';
 import SellIcon from '@mui/icons-material/Sell';
 
@@ -60,6 +60,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
+  const isLogin=localStorage.getItem("userToken")
+  
   const navigateSell=useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -102,8 +104,9 @@ const Header = () => {
       onClose={handleMenuClose}
     >
       <Link to="/signup" ><MenuItem onClick={handleMenuClose}>Signup</MenuItem></Link>
-      <Link to="/login"> <MenuItem onClick={handleMenuClose}>Login</MenuItem></Link>
-      <MenuItem onClick={handleMenuClose}>My Sell</MenuItem>
+     {!isLogin &&  <Link to="/login"> <MenuItem onClick={handleMenuClose}>Login</MenuItem></Link>}
+   
+     <Link to="/mySell" > <MenuItem onClick={handleMenuClose}>Show MySell</MenuItem></Link>
    
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
@@ -134,18 +137,7 @@ const Header = () => {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+     
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -162,6 +154,10 @@ const Header = () => {
   );
 const toSell=()=>{
  navigateSell("/sell")
+}
+const logout=()=>{
+  localStorage.clear();
+  window.location.assign("/login")
 }
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -193,7 +189,7 @@ const toSell=()=>{
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <IconButton onClick={toSell}
+         <IconButton onClick={toSell}
           size="large"
           aria-label="sell"
           color="secondary"
@@ -202,7 +198,8 @@ const toSell=()=>{
             <SellIcon />
             sell
         </IconButton>
-          {/* <ButtonBase onClick={toSell}>To sell</ButtonBase> */}
+       
+       
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -210,15 +207,7 @@ const toSell=()=>{
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+           
             <IconButton
               size="large"
               edge="end"
@@ -231,6 +220,13 @@ const toSell=()=>{
               <AccountCircle />
             </IconButton>
           </Box>
+          {isLogin &&    <IconButton onClick={logout}
+          size="large"
+          aria-label="logout"
+          color="secondary"
+        >
+            logout
+        </IconButton>}
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"

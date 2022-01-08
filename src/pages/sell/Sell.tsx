@@ -28,7 +28,7 @@ const Sell = () => {
     const [form, setForm] = useState<sellModelInterface>({
         category: "",
         description: "",
-        image: "",
+        images: [],
         locationType: ELocationType.PRIVATE,
         price: 0,
         title: "",
@@ -58,13 +58,13 @@ const Sell = () => {
         formdata.append("phone", form.phone);
         formdata.append("locationType", form.locationType);
         formdata.append("selltype", form.selltype);
-      
-        for (const key of Object.keys(files))
-        {
-             formdata.append('images', files[key])
-            }
-        sellApi(formdata).then((res: any) => {
 
+        for (const key of Object.keys(files)) {
+            formdata.append('images', files[key])
+        }
+        sellApi(formdata).then((res: any) => {
+            alert("tosell successfully")
+            window.location.assign("/")
         }).catch((err: any) => {
             console.log("err=", err)
         })
@@ -73,8 +73,8 @@ const Sell = () => {
     const HandlechangeImage = (event: any) => {
         const profilImage = event.target.files
         if (profilImage)
-        
-        setFiles(profilImage)
+
+            setFiles(profilImage)
     }
     return (
         <div className={classes.container}>

@@ -4,18 +4,20 @@ export default interface sellModelInterface {
     title: string,
     price: number,
     description: string,
-    image: string,
+    images: string[],
     category: string,
     selltype: ESellType,
-    locationType: ELocationType
+    locationType: ELocationType,
+    _id?: string
+
 
 }
- export  enum ESellType {
+export enum ESellType {
     REQUEST = "request",
     BID = "bid"
 }
 
- export enum ELocationType {
+export enum ELocationType {
     PRIVATE = "private",
     COMMERCIAL = "commercial"
 }

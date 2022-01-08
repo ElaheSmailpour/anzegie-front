@@ -1,6 +1,7 @@
 export default interface loginResponseModelInterface {
     message: string,
     username: string,
-    token:string
+    token:string,
+    name:string
 
 }

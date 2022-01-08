@@ -5,7 +5,7 @@ const getAxios = () => {
         timeout: 10000,
         baseURL: "http://localhost:5000/",
       headers:{
-        "Token":localStorage.getItem("userToken") || ""
+        "token":localStorage.getItem("userToken") || ""
         
       }
     })

@@ -1,9 +1,10 @@
 
 
 const TopHeader = () => {
+    const isLogin=localStorage.getItem("userToken")
     return (
         <div>
-            Eli shop...
+        {isLogin && <p> {localStorage.getItem("name")}</p>}
         </div>
     )
 }
