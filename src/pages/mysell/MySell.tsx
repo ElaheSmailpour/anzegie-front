@@ -14,7 +14,13 @@ const MySell = () => {
         getMySellApi().then((res) => {
             setMySellData(res.data)
         }).catch((err) => {
+            if (err.response?.status===401)
+            {
+            window.location.assign("/login")
+            localStorage.clear()
+            }
             console.log("err getMySellApi=", err)
+            
         })
     }
     return (

@@ -34,6 +34,7 @@ const ShowMySell :React.FC<ShowMySellProps>= ({sell,UpdateData})=> {
             alert("remove successfully!")
             UpdateData()
         }).catch((err: any) => {
+         
             console.log("error removeMySell=", err)
         })
     }
@@ -55,7 +56,8 @@ const ShowMySell :React.FC<ShowMySellProps>= ({sell,UpdateData})=> {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Share</Button>
+            <Link to={`/editsell/${sell._id}`}> <Button size="small" >Edit Mysell</Button></Link>
+              
                 <Button onClick={removeMySell}   size="small">Remove</Button>
             </CardActions>
         </Card>

@@ -11,6 +11,7 @@ import CardMedia from '@mui/material/CardMedia';
 
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
+
 const useStyles = makeStyles(() => ({
     root: {
         maxWidth: 345,
@@ -18,6 +19,18 @@ const useStyles = makeStyles(() => ({
     },
     media: {
         height: 140,
+    },
+    container: {
+        display: "flex",
+        gap: "4rem"
+    },
+    imageContainer: {
+        display: "grid",
+        gridTemplateColumns: "max-content max-content max-Content",
+        gap: "6rem"
+    },
+    imgStyle:{
+        width:"200px"
     }
 }))
 
@@ -35,43 +48,45 @@ const DetailsMySell = () => {
         })
     }, [id])
     if (!data)
-    return <p>Loading!...</p>
+        return <p>Loading!...</p>
     return (
-        <div>
-      
-        <Card style={{ maxWidth: 345 }} className={classes.root}>
-           
-           <CardMedia
-                component="img"
-                height="140"
-                image={data.images[0]}
-                alt="pic"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {data.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {data.price}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {data.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {data.phone}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {data.selltype}
-                </Typography>
-                
-            </CardContent>
-            <CardActions>
-               
-            </CardActions>
-        </Card>
-        {data.images.map((item,index)=>{
-            return <img key={index} src={item} alt="pic"/>
-        })}
+        <div className={classes.container} >
+
+            <Card style={{ maxWidth: 345 }} className={classes.root}>
+
+                <CardMedia 
+                    component="img"
+                    height="140"
+                    image={data.images[0]}
+                    alt="pic"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {data.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {data.price}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {data.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {data.phone}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {data.selltype}
+                    </Typography>
+
+                </CardContent>
+                <CardActions>
+
+                </CardActions>
+            </Card>
+            <div className={classes.imageContainer}>
+                {data.images.map((item, index) => {
+                    return <img className={classes.imgStyle} key={index} src={item} alt="pic" />
+                })}
+            </div>
         </div>
 
 

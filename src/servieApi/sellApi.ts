@@ -36,3 +36,7 @@ export const loginApi=(username:string, password:string)=> {
     return getAxios().delete(`/sell/removeSell/${id}`)
 
 }
+
+export const editMySellApi=(id:any,body:FormData)=> {
+  return getAxios().put(`/sell/editSell/${id}`,body )
+}
