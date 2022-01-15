@@ -40,3 +40,14 @@ export const loginApi=(username:string, password:string)=> {
 export const editMySellApi=(id:any,body:FormData)=> {
   return getAxios().put(`/sell/editSell/${id}`,body )
 }
+
+
+
+export const getShopSellApi=()=> {
+  return getAxios().get(`/shop/getShop` )
+}
+
+
+export const addcartApi=(body:{sell:string,count:number})=> {
+  return getAxios().post<void>("/shop/addcart", body)
+}

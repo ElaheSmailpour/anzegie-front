@@ -11,6 +11,7 @@ import sellModelInterface, { ELocationType, ESellType } from '../../models/sellM
 import { addcategoryApi } from "../../servieApi/sellApi"
 import { sellApi } from '../../servieApi/sellApi';
 import categoryModelInterface from '../../models/categoryCategory';
+import { useNavigate } from 'react-router-dom';
 const useStyles = makeStyles(() => ({
     container: {
         display: "flex",
@@ -21,7 +22,7 @@ const useStyles = makeStyles(() => ({
 })) as any
 
 const Sell = () => {
-
+const navigate=useNavigate()
     const classes = useStyles()
     const [categoryList, setCategoryList] = useState<categoryModelInterface[]>([])
     const [files, setFiles] = useState<any>([])
@@ -52,6 +53,7 @@ const Sell = () => {
     const handelclickSell = () => {
         const formdata = new FormData()
         formdata.append("description", form.description);
+        formdata.append("category", form.category);
         formdata.append("name", form.name);
         formdata.append("price", form.price + "");
         formdata.append("title", form.title);
@@ -64,7 +66,7 @@ const Sell = () => {
         }
         sellApi(formdata).then((res: any) => {
             alert("tosell successfully")
-            window.location.assign("/")
+           navigate("/")
         }).catch((err: any) => {
             console.log("err=", err)
         })

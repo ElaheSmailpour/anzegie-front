@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import SellIcon from '@mui/icons-material/Sell';
 
@@ -107,8 +107,8 @@ const Header = () => {
      {!isLogin &&  <Link to="/login"> <MenuItem onClick={handleMenuClose}>Login</MenuItem></Link>}
    
      <Link to="/mySell" > <MenuItem onClick={handleMenuClose}>Show MySell</MenuItem></Link>
-   
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+  
+    
     </Menu>
   );
 
@@ -155,6 +155,10 @@ const Header = () => {
 const toSell=()=>{
  navigateSell("/sell")
 }
+
+const toCart=()=>{
+  navigateSell("/cart")
+ }
 const logout=()=>{
   localStorage.clear();
   window.location.assign("/login")
@@ -199,13 +203,12 @@ const logout=()=>{
             sell
         </IconButton>
        
-       
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
+            <IconButton size="large" aria-label="cart" color="inherit">
+              
+              <ShoppingCartIcon onClick={toCart} />
+             
             </IconButton>
            
             <IconButton
@@ -220,7 +223,7 @@ const logout=()=>{
               <AccountCircle />
             </IconButton>
           </Box>
-          {isLogin &&    <IconButton onClick={logout}
+          {isLogin && <IconButton onClick={logout}
           size="large"
           aria-label="logout"
           color="secondary"

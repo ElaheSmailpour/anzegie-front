@@ -6,6 +6,7 @@ import DetailsMySell from '../mysell/DetailsMySell';
 import MySell from '../mysell/MySell';
 import Signup from '../signup/Signup';
 import EditMySell from '../mysell/EditMySell';
+import Cart from '../cart/Cart';
 
 const routes = (isLoggedIn) => [
 
@@ -37,6 +38,11 @@ const routes = (isLoggedIn) => [
         element: isLoggedIn ? <Sell/> : <Navigate to="/login"/>
     
   },
+  {
+    path: '/cart',
+    element: isLoggedIn ? <Cart/> : <Navigate to="/login"/>
+
+},
     {
         path: '/mySell',
         element: isLoggedIn ? <MySell/> : <Navigate to="/login"/>

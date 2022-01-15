@@ -55,9 +55,7 @@ const Signup = () => {
     }
 
     const handleChangeForm = (e: any) => {
-        console.log(e.target, e.target.name)
-
-        const newForm = { ...form } as any
+           const newForm = { ...form } as any
         newForm[e.target.name] = e.target.value;
         setForm(newForm);
     }
