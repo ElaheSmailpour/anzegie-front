@@ -51,3 +51,9 @@ export const getShopSellApi=()=> {
 export const addcartApi=(body:{sell:string,count:number})=> {
   return getAxios().post<void>("/shop/addcart", body)
 }
+
+
+
+export const getCartApi=()=> {
+  return getAxios().get(`/shop/getCart` )
+}

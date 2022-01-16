@@ -18,10 +18,12 @@ const useStyles = makeStyles(() => ({
 const Home = () => {
     const classes = useStyles()
     const [data, setData] = useState<sellModelInterfacePopulate[]>([])
-
+   
     useEffect(() => {
         getShopSellApi().then((res: AxiosResponse<sellModelInterfacePopulate[]>) => {
+         
             setData(res.data)
+           
         }).catch((err: any) => {
             console.log(err)
         })

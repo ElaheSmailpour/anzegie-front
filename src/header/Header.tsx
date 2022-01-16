@@ -18,6 +18,9 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import SellIcon from '@mui/icons-material/Sell';
 
 import { Link, useNavigate } from 'react-router-dom';
+import { getCartApi } from '../servieApi/sellApi';
+import { useEffect } from 'react';
+import { interfaceCart } from '../models/sellModel';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Header = () => {
   const isLogin=localStorage.getItem("userToken")
+  const [count,setCount]=React.useState()
   
   const navigateSell=useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -69,6 +73,18 @@ const Header = () => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+
+  useEffect(() => {
+    setInterval(()=>{
+      getCartApi().then((res: any) => {
+        const reduceCount= res.data.reduce((acc:number,item:interfaceCart)=>acc+item.count,0)
+            setCount(reduceCount)
+        }).catch((err: any) => {
+            console.log("error getCartApilength=", err)
+        })
+    },2000)
+   
+}, [])
   const handleProfileMenuOpen = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -206,9 +222,9 @@ const logout=()=>{
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="cart" color="inherit">
-              
+            <Badge badgeContent={count} color="error">
               <ShoppingCartIcon onClick={toCart} />
-             
+              </Badge>
             </IconButton>
            
             <IconButton

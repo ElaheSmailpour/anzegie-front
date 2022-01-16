@@ -32,7 +32,7 @@ const SellCard :React.FC<SellCardProps>= ({sell})=> {
  
     return (
 
-        <Link to={`/detailSell/${sell._id}`}>   <Card style={{ maxWidth: 345 }} className={classes.root}>
+        <Link to={`/detailSell/${sell._id}`}><Card style={{ maxWidth: 345 }} className={classes.root}>
            <CardMedia
                 component="img"
                 height="140"

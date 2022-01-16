@@ -37,3 +37,10 @@ export enum ELocationType {
     PRIVATE = "private",
     COMMERCIAL = "commercial"
 }
+
+
+ export interface interfaceCart {
+    sell: sellModelInterface,
+    _id: string,
+    count: number
+}
